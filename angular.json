@@ -64,17 +64,21 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "pongconnect-frontend:build:production"
-            },
-            "development": {
-              "buildTarget": "pongconnect-frontend:build:development"
-            }
+           "builder": "@angular/build:dev-server",
+          "options": {
+            "host": "172.26.48.230",
+            "port": 5000
           },
-          "defaultConfiguration": "development"
+          "configurations": {
+          "production": {
+          "buildTarget": "pongconnect-frontend:build:production"
         },
+          "development": {
+          "buildTarget": "pongconnect-frontend:build:development"
+      }
+    },
+    "defaultConfiguration": "development"
+  },
         "test": {
           "builder": "@angular/build:unit-test"
         }

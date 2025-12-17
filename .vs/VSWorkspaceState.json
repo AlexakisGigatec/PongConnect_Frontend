@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\public",
+    "\\public\\assets",
+    "\\public\\assets\\images",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\controller-component",
+    "\\src\\app\\game-component",
+    "\\src\\assets"
+  ],
+  "SelectedNode": "\\public\\assets\\images\\logo_bitlords-removebg-preview.png",
+  "PreviewInSolutionExplorer": false
+}
