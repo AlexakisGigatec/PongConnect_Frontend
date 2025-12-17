@@ -20,6 +20,8 @@ export class GameComponent implements AfterViewInit {
   rightPaddleY!: number;
   paddleWidth!: number;
   paddleHeight!: number;
+  // Show instructions overlay (can be toggled later)
+  showInstructions = true;
 
 
   ngAfterViewInit() {
@@ -55,6 +57,11 @@ export class GameComponent implements AfterViewInit {
     this.ballY = canvas.height / 2;
     this.leftPaddleY = canvas.height / 2 - this.paddleHeight / 2;
     this.rightPaddleY = canvas.height / 2 - this.paddleHeight / 2;
+  }
+
+  // Toggle the instructions overlay (keeps CSS hook for later control)
+  toggleInstructions() {
+    this.showInstructions = !this.showInstructions;
   }
 
   gameLoop() {
