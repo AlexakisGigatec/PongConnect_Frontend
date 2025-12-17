@@ -61,7 +61,6 @@ export class GameComponent implements AfterViewInit {
     this.update();
     this.draw();
     requestAnimationFrame(() => this.gameLoop());
-    console.log(this.ctx.fillStyle)
   }
   
   // startSound(){

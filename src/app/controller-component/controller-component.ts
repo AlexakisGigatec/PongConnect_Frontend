@@ -42,46 +42,39 @@ export class ControllerComponent implements OnInit, OnDestroy {
   }
 
 
-  update(event: MouseEvent | TouchEvent) {
-  const rect = this.joy.nativeElement.getBoundingClientRect();
-  const radius = rect.width / 2;
+  update(event: any) {
+    const rect = this.joy.nativeElement.getBoundingClientRect();
+    const radius = rect.width / 2;
 
-  const stickEl = this.joy.nativeElement.querySelector('.stick') as HTMLElement | null;
-  const stickRadius = stickEl ? stickEl.getBoundingClientRect().width / 2 : 45;
+    const stickEl = this.joy.nativeElement.querySelector('.stick') as HTMLElement | null;
+    const stickRadius = stickEl ? stickEl.getBoundingClientRect().width / 2 : 45;
 
-  const cx = rect.left + radius;
-  const cy = rect.top + radius;
+    const cx = rect.left + radius;
+    const cy = rect.top + radius;
 
-  let clientX: number;
-  let clientY: number;
+    const touch = event.touches?.[0] || event.changedTouches?.[0];
+    const clientX = touch ? touch.clientX : (event.clientX ?? 0);
+    const clientY = touch ? touch.clientY : (event.clientY ?? 0);
 
-  if ('touches' in event && event.touches.length > 0) {
-    clientX = event.touches[0].clientX;
-    clientY = event.touches[0].clientY;
-  } else {
-    clientX = (event as MouseEvent).clientX;
-    clientY = (event as MouseEvent).clientY;
+    let dx = clientX - cx;
+    let dy = clientY - cy;
+
+    const max = radius - stickRadius;
+    const dist = Math.hypot(dx, dy);
+
+    if (dist > max) {
+      dx = (dx / dist) * max;
+      dy = (dy / dist) * max;
+    }
+
+    this.transform = `translate(-50%, -50%) translate(${dx}px, ${dy}px)`;
+
+    const normX = dx / max;
+    const normY = dy / max;
+
+    this.move.emit({ x: normX, y: normY });
+    this.ws.send({ type: 'INPUT', x: normX, y: normY });
   }
-
-  let dx = clientX - cx;
-  let dy = clientY - cy;
-
-  const max = radius - stickRadius;
-  const dist = Math.hypot(dx, dy);
-
-  if (dist > max) {
-    dx = (dx / dist) * max;
-    dy = (dy / dist) * max;
-  }
-
-  this.transform = `translate(-50%, -50%) translate(${dx}px, ${dy}px)`;
-
-  const normX = dx / max;
-  const normY = dy / max;
-
-  this.move.emit({ x: normX, y: normY });
-  this.ws.send({ type: 'INPUT', x: normX, y: normY });
-}
 
   ngOnDestroy() {
     this.ws.disconnect();
