@@ -65,10 +65,10 @@
         },
         "serve": {
            "builder": "@angular/build:dev-server",
-            "options": {   
-              "host": "192.168.6.1",
-              "port": 5000
-        },
+          "options": {
+            "host": "172.26.48.230",
+            "port": 5000
+          },
           "configurations": {
           "production": {
           "buildTarget": "pongconnect-frontend:build:production"
