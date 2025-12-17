@@ -27,7 +27,7 @@ export class GameComponent implements AfterViewInit {
   paddleWidth = 0;
   paddleHeight = 0;
   playerCount = 0;
-  gamePaused = true;
+  gamePaused = false;
   showInstructions = true;
   aiEnabled = false;
   aiSpeed = 6;
@@ -110,10 +110,6 @@ export class GameComponent implements AfterViewInit {
     this.ballSpeedY = canvas.height * 0.005;
     this.leftPaddleY = canvas.height / 2 - this.paddleHeight / 2;
     this.rightPaddleY = canvas.height / 2 - this.paddleHeight / 2;
-  }
-
-  toggleInstructions() {
-    this.showInstructions = !this.showInstructions;
   }
 
   gameLoop() {
