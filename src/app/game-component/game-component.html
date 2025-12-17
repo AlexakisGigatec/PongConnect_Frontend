@@ -1,1 +1,23 @@
   <canvas #pongGame></canvas>
+
+  <!-- Instructions overlay (visible by default, can be toggled via `showInstructions`) -->
+  <div class="instructions-overlay" [class.hidden]="!showInstructions">
+    <div class="instructions-modal" role="dialog" aria-modal="true">
+      <h1 class="sr-only">Spielanleitung</h1>
+      <div class="instructions-body">
+        <ul class="instructions-list">
+          <li>• Verbinden Sie Ihr Handy mit unserem Wlan.</li>
+          <li>• Scannen Sie den QR-Code mit ihrem Smartphone.</li>
+          <li>• Verbinden Sie Ihr Smartphone – das Spiel startet automatisch.</li>
+          <li>• Steuern Sie Ihren Spieler mit dem Joystick (hoch und runter schieben).</li>
+        </ul>
+
+        <div class="qr-placeholders">
+          <div class="qr-box"><img src="assets/qr1.png" alt="QR-Code 1"/></div>
+        </div>
+      </div>
+      <div class="instructions-actions">
+        <button class="close-btn" (click)="toggleInstructions()">Schließen</button>
+      </div>
+    </div>
+  </div>
