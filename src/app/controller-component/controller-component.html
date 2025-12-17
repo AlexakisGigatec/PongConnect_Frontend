@@ -1,14 +1,7 @@
 <div class="controller">
-<div class="joystick" #joy
-(mousedown)="start($event)"
-(mousemove)="moveJoy($event)"
-(mouseup)="end()"
-(mouseleave)="end()"
-(touchstart)="start($event)"
-(touchmove)="moveJoy($event)"
-(touchend)="end()">
-
-
-<div class="stick" [style.transform]="transform"></div>
-</div>
+    <div class="joystick" #joy (mousedown)="start($event)" (mousemove)="moveJoy($event)" (mouseup)="end()"
+        (mouseleave)="end()" (touchstart)="start($event)" (touchmove)="moveJoy($event)" (touchend)="end()"
+        (touchcancel)="end()">
+        <div class="stick" [style.transform]="transform"></div>
+    </div>
 </div>
