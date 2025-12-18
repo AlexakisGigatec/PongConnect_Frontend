@@ -19,6 +19,7 @@ export class ControllerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.ws.connect('controller');
+    console.log('Rolle gesetzt:', 'controller');
   }
 
 
@@ -44,36 +45,39 @@ export class ControllerComponent implements OnInit, OnDestroy {
 
   update(event: any) {
     const rect = this.joy.nativeElement.getBoundingClientRect();
-    const radius = rect.width / 2;
+
+    // Use vertical radius based on height so the stick can travel the full box height
+    const radiusY = rect.height / 2;
 
     const stickEl = this.joy.nativeElement.querySelector('.stick') as HTMLElement | null;
     const stickRadius = stickEl ? stickEl.getBoundingClientRect().width / 2 : 45;
 
-    const cx = rect.left + radius;
-    const cy = rect.top + radius;
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + radiusY;
 
     const touch = event.touches?.[0] || event.changedTouches?.[0];
     const clientX = touch ? touch.clientX : (event.clientX ?? 0);
     const clientY = touch ? touch.clientY : (event.clientY ?? 0);
 
-    let dx = clientX - cx;
-    let dy = clientY - cy;
+    let dx = 0;
+    let dy = clientY - centerY;
 
-    const max = radius - stickRadius;
-    const dist = Math.hypot(dx, dy);
+    // Limit movement based on vertical radius and stick size
+    const max = Math.max(radiusY - stickRadius, 1);
 
-    if (dist > max) {
-      dx = (dx / dist) * max;
-      dy = (dy / dist) * max;
+    // Cap dy to within [-max, max]
+    if (Math.abs(dy) > max) {
+      dy = (dy / Math.abs(dy)) * max;
     }
 
-    this.transform = `translate(-50%, -50%) translate(${dx}px, ${dy}px)`;
+    this.transform = `translate(-50%, -50%) translate(0px, ${dy}px)`;
 
-    const normX = dx / max;
+    const normX = 0; 
     const normY = dy / max;
 
     this.move.emit({ x: normX, y: normY });
     this.ws.send({ type: 'INPUT', x: normX, y: normY });
+    console.log('Sende INPUT -> role: controller, y =', normY.toFixed(3));
   }
 
   ngOnDestroy() {
