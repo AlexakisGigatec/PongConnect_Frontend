@@ -1,9 +1,12 @@
-import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
 import { WebsocketService } from '../services/websocket.service';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { platform } from 'os';
 
 @Component({
   selector: 'app-game-component',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './game-component.html',
   styleUrls: ['./game-component.scss'],
 })
@@ -32,10 +35,13 @@ export class GameComponent implements AfterViewInit {
   aiEnabled = false;
   aiSpeed = 6;
 
-  constructor(private ws: WebsocketService) { }
+  constructor(private ws: WebsocketService, @Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngAfterViewInit() {
 
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
     this.ws.connect('game');
 
     this.ws.messages.subscribe(msg => {

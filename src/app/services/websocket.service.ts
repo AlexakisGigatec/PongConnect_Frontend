@@ -31,14 +31,16 @@ export class WebsocketService {
       }
     };
 
-    this.socket.onerror = (err) => console.error('WebSocket Error', err);
+    this.socket.onerror = (err) => console.error('WebSocket Error lol', err);
 
     this.socket.onclose = () => console.log('WebSocket geschlossen');
   }
 
   send(message: InputMessage) {
+    
     if (this.socket && this.socket.readyState === WebSocket.OPEN) {
       this.socket.send(JSON.stringify(message));
+      console.log(JSON.stringify(message));
     }
   }
 
