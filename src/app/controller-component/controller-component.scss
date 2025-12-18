@@ -24,8 +24,9 @@
 
 .joystick {
 width: 120px;
-height: 240px;
-border-radius: 10px;
+height: 260px;
+padding: 15px 0;
+border-radius: 50px;
 background: radial-gradient(circle at center, #1c1c1c, #050505);
 border: 3px solid #fff;
 position: relative;
@@ -44,23 +45,9 @@ background: radial-gradient(circle at top left, #fff, #bbb);
 position: absolute;
 top: 50%;
 left: 50%;
-
 box-shadow:
 0 8px 20px rgba(0,0,0,0.6),
 inset 0 0 8px rgba(255,255,255,0.6);
 transition: transform 0.08s ease-out;
 }
 
-
-@media (max-width: 600px) {
-.joystick {
-width: 200px;
-height: 200px;
-}
-
-
-.stick {
-width: 75px;
-height: 75px;
-}
-}
