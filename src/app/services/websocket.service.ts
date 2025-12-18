@@ -14,7 +14,7 @@ export class WebsocketService {
 
   
   connect(role: 'game' | 'controller') {
-    this.socket = new WebSocket('ws://localhost:5000/ws');
+    this.socket = new WebSocket('ws://10.123.189.5:5000/ws');
     this.socket.binaryType = 'arraybuffer';
 
     this.socket.onopen = () => {
